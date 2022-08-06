@@ -5,7 +5,6 @@ const banco = require('../mysql').banco
 // Cadastrar tarefa
 router.post('/', (req, res) => {
   let tarefa = req.body
-  let id = req.params.idQuadros
 
   const SQL = `INSERT INTO tarefas (titulo_tarefa, descricao, status, fk_tarefas_quadros) VALUES ('${tarefa.titulo_tarefa}', '${tarefa.descricao}', '${tarefa.status}', ${tarefa.fk_tarefas_quadros})`
 

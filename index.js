@@ -11,6 +11,8 @@ const rotaQuadros = require('./rotas/quadros')
 server.use('/quadros', rotaQuadros)
 const rotaTarefas = require('./rotas/tarefas')
 server.use('/tarefas', rotaTarefas)
+const rotaSubTarefas = require('./rotas/subtarefas')
+server.use('/subtarefas', rotaSubTarefas)
 
 server.get('/conectar', (req, res) => {
   banco.getConnection((erro, con) => {
