@@ -7,6 +7,7 @@ const banco = require('../mysql').banco
 router.post('/', (req, res) => {
   let q = req.body
   let id = req.params.idQuadros
+
   const SQL = `INSERT INTO quadros (nome) VALUES ('${q.nome}')`
 
   banco.getConnection((erro, con) => {
@@ -41,6 +42,7 @@ router.post('/', (req, res) => {
 router.patch('/:id', (req, res) => {
   let id = req.params.id
   let quadro = req.body
+
   const SQL = `UPDATE quadros SET nome = '${quadro.nome}' WHERE idQuadros = ${id}`
 
   banco.getConnection((erro, con) => {

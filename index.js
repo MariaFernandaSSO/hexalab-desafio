@@ -8,8 +8,9 @@ server.use(bodyParser.json())
 
 //rotas
 const rotaQuadros = require('./rotas/quadros')
-
 server.use('/quadros', rotaQuadros)
+const rotaTarefas = require('./rotas/tarefas')
+server.use('/tarefas', rotaTarefas)
 
 server.get('/conectar', (req, res) => {
   banco.getConnection((erro, con) => {
