@@ -1,6 +1,5 @@
 # Desafio back-end - Hexalab
 Projeto desenvolvido no intuito de resolver o desafio proposto pela Hexalab.
-Obs: O banco de dados do projeto está sem registros. 
 
 Para executar o projeto, recomendo que tenha instalado o node.
 Abra o projeto pelo seu prompt de comando e digite "Npm i" para que a pasta dos módulos seja instalada.
