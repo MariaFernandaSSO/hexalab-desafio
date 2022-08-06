@@ -44,7 +44,7 @@ router.patch('/:id', (req, res) => {
   let id = req.params.id
   let tarefa = req.body
 
-  const SQL = `UPDATE tarefas SET titulo_tarefa = '${tarefa.titulo_tarefa}', descricao = '${tarefa.descricao}', status = '${tarefa.status}' WHERE idTarefas = ${id}`
+  const SQL = `UPDATE tarefas SET titulo_tarefa = '${tarefa.titulo_tarefa}', descricao = '${tarefa.descricao}' WHERE idTarefas = ${id}`
 
   banco.getConnection((erro, con) => {
     if (erro) {
@@ -145,4 +145,40 @@ router.delete('/:id', (req, res) => {
     })
   })
 })
+
+// atualizar status tarefa
+router.patch('/status/:id', (req, res) => {
+  let id = req.params.id
+  let tarefa = req.body
+
+  const SQL = `UPDATE tarefas SET status = '${tarefa.status}' WHERE idTarefas = ${id}`
+
+  banco.getConnection((erro, con) => {
+    if (erro) {
+      return res.status(500).send({
+        mensagem:
+          'Não foi possível atender a esta solicitação - Erro na conexão',
+        detalhes: erro
+      })
+    }
+
+    con.query(SQL, (erro, resultados) => {
+      con.release()
+
+      if (erro) {
+        return res.status(500).send({
+          mensagem: 'Erro ao atualizar status da tarefa',
+          detalhes: erro
+        })
+      }
+
+      return res.status(200).send({
+        mensagem: 'Status da tarefa atualizada com sucesso!',
+        id: id,
+        status: tarefa.status
+      })
+    })
+  })
+})
+
 module.exports = router

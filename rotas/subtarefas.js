@@ -44,7 +44,7 @@ router.patch('/:id', (req, res) => {
   let id = req.params.id
   let sub = req.body
 
-  const SQL = `UPDATE subtarefas SET titulo_subtarefa = '${sub.titulo_subtarefa}', descricao = '${sub.descricao}', status = '${sub.status}' WHERE idSubtarefas = ${id}`
+  const SQL = `UPDATE subtarefas SET titulo_subtarefa = '${sub.titulo_subtarefa}', descricao = '${sub.descricao}' WHERE idSubtarefas = ${id}`
 
   banco.getConnection((erro, con) => {
     if (erro) {
@@ -145,4 +145,40 @@ router.delete('/:id', (req, res) => {
     })
   })
 })
+
+// atualizar status subtarefa
+router.patch('/status/:id', (req, res) => {
+  let id = req.params.id
+  let sub = req.body
+
+  const SQL = `UPDATE subtarefas SET status = '${sub.status}' WHERE idSubtarefas = ${id}`
+
+  banco.getConnection((erro, con) => {
+    if (erro) {
+      return res.status(500).send({
+        mensagem:
+          'Não foi possível atender a esta solicitação - Erro na conexão',
+        detalhes: erro
+      })
+    }
+
+    con.query(SQL, (erro, resultados) => {
+      con.release()
+
+      if (erro) {
+        return res.status(500).send({
+          mensagem: 'Erro ao atualizar status da subtarefa',
+          detalhes: erro
+        })
+      }
+
+      return res.status(200).send({
+        mensagem: 'Status da subtarefa atualizada com sucesso!',
+        id: id,
+        status: sub.status
+      })
+    })
+  })
+})
+
 module.exports = router
